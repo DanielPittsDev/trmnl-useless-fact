@@ -1,12 +1,32 @@
 {% assign short_id = id | slice: 0, 8 %}
+{% assign fact_length = text | size %}
+{% if fact_length > 170 %}
+  {% assign fact_text_class = "fact-hv-text--very-long" %}
+  {% assign fact_card_class = "fact-hv-card--very-long" %}
+{% elsif fact_length > 120 %}
+  {% assign fact_text_class = "fact-hv-text--long" %}
+  {% assign fact_card_class = "fact-hv-card--long" %}
+{% elsif fact_length > 80 %}
+  {% assign fact_text_class = "fact-hv-text--medium" %}
+  {% assign fact_card_class = "fact-hv-card--medium" %}
+{% else %}
+  {% assign fact_text_class = "" %}
+  {% assign fact_card_class = "" %}
+{% endif %}
 
 <style>
+  .fact-layout {
+    height: calc(100% - 58px);
+    box-sizing: border-box;
+  }
+
   .fact-half-vertical {
     height: 100%;
     display: flex;
     flex-direction: column;
     gap: 14px;
     box-sizing: border-box;
+    min-height: 0;
   }
 
   .fact-hv-header {
@@ -23,6 +43,7 @@
 
   .fact-hv-card {
     flex: 1;
+    min-height: 0;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -31,6 +52,19 @@
     padding: 22px;
     box-sizing: border-box;
     box-shadow: 7px 7px 0 #000;
+    overflow: hidden;
+  }
+
+  .fact-hv-card--medium {
+    padding: 20px;
+  }
+
+  .fact-hv-card--long {
+    padding: 18px;
+  }
+
+  .fact-hv-card--very-long {
+    padding: 16px;
   }
 
   .fact-hv-label {
@@ -47,10 +81,26 @@
     line-height: 1.14;
   }
 
+  .fact-hv-text--medium {
+    font-size: 22px;
+    line-height: 1.1;
+  }
+
+  .fact-hv-text--long {
+    font-size: 19px;
+    line-height: 1.08;
+  }
+
+  .fact-hv-text--very-long {
+    font-size: 16px;
+    line-height: 1.06;
+  }
+
   .fact-hv-meta {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 8px;
+    flex: 0 0 auto;
   }
 
   .fact-hv-meta-item {
@@ -91,15 +141,15 @@
   }
 </style>
 
-<div class="layout">
+<div class="layout fact-layout">
   <div class="fact-half-vertical">
     <div class="fact-hv-header">
       <div class="fact-hv-kicker">Useless Fact</div>
     </div>
 
-    <div class="fact-hv-card">
+    <div class="fact-hv-card {{ fact_card_class }}">
       <div class="fact-hv-label">Unnecessary knowledge</div>
-      <div class="fact-hv-text">{{ text }}</div>
+      <div class="fact-hv-text {{ fact_text_class }}">{{ text }}</div>
     </div>
 
     <div class="fact-hv-meta">

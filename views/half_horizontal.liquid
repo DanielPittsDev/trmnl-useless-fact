@@ -1,6 +1,25 @@
 {% assign short_id = id | slice: 0, 8 %}
+{% assign fact_length = text | size %}
+{% if fact_length > 180 %}
+  {% assign fact_text_class = "fact-hh-text--very-long" %}
+  {% assign fact_card_class = "fact-hh-card--very-long" %}
+{% elsif fact_length > 130 %}
+  {% assign fact_text_class = "fact-hh-text--long" %}
+  {% assign fact_card_class = "fact-hh-card--long" %}
+{% elsif fact_length > 90 %}
+  {% assign fact_text_class = "fact-hh-text--medium" %}
+  {% assign fact_card_class = "fact-hh-card--medium" %}
+{% else %}
+  {% assign fact_text_class = "" %}
+  {% assign fact_card_class = "" %}
+{% endif %}
 
 <style>
+  .fact-layout {
+    height: calc(100% - 58px);
+    box-sizing: border-box;
+  }
+
   .fact-half-horizontal {
     height: 100%;
     display: grid;
@@ -8,9 +27,11 @@
     gap: 18px;
     align-items: stretch;
     box-sizing: border-box;
+    min-height: 0;
   }
 
   .fact-hh-card {
+    min-height: 0;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -19,6 +40,19 @@
     padding: 22px 26px;
     box-sizing: border-box;
     box-shadow: 8px 8px 0 #000;
+    overflow: hidden;
+  }
+
+  .fact-hh-card--medium {
+    padding: 20px 24px;
+  }
+
+  .fact-hh-card--long {
+    padding: 18px 22px;
+  }
+
+  .fact-hh-card--very-long {
+    padding: 16px 20px;
   }
 
   .fact-hh-label {
@@ -40,6 +74,21 @@
     line-height: 1.13;
   }
 
+  .fact-hh-text--medium {
+    font-size: 24px;
+    line-height: 1.1;
+  }
+
+  .fact-hh-text--long {
+    font-size: 21px;
+    line-height: 1.08;
+  }
+
+  .fact-hh-text--very-long {
+    font-size: 18px;
+    line-height: 1.06;
+  }
+
   .fact-hh-side {
     display: flex;
     flex-direction: column;
@@ -47,6 +96,12 @@
     border-left: 3px solid #000;
     padding-left: 18px;
     box-sizing: border-box;
+  }
+
+  .fact-hh-meta-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
   }
 
   .fact-hh-kicker {
@@ -87,11 +142,11 @@
   }
 </style>
 
-<div class="layout">
+<div class="layout fact-layout">
   <div class="fact-half-horizontal">
-    <div class="fact-hh-card">
+    <div class="fact-hh-card {{ fact_card_class }}">
       <div class="fact-hh-label">Fact</div>
-      <div class="fact-hh-text">{{ text }}</div>
+      <div class="fact-hh-text {{ fact_text_class }}">{{ text }}</div>
     </div>
 
     <div class="fact-hh-side">
@@ -99,14 +154,16 @@
         <div class="fact-hh-kicker">Useless Fact</div>
       </div>
 
-      <div>
-        <span class="fact-hh-meta-label">Source</span>
-        <span class="fact-hh-meta-value">{{ source }}</span>
-      </div>
+      <div class="fact-hh-meta-stack">
+        <div>
+          <span class="fact-hh-meta-label">Source</span>
+          <span class="fact-hh-meta-value">{{ source }}</span>
+        </div>
 
-      <div>
-        <span class="fact-hh-meta-label">Fact ID</span>
-        <span class="fact-hh-meta-value">{{ short_id }}</span>
+        <div>
+          <span class="fact-hh-meta-label">Fact ID</span>
+          <span class="fact-hh-meta-value">{{ short_id }}</span>
+        </div>
       </div>
     </div>
   </div>

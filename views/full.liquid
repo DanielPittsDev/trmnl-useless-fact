@@ -1,12 +1,32 @@
 {% assign short_id = id | slice: 0, 8 %}
+{% assign fact_length = text | size %}
+{% if fact_length > 230 %}
+  {% assign fact_text_class = "fact-text--very-long" %}
+  {% assign fact_card_class = "fact-card--very-long" %}
+{% elsif fact_length > 170 %}
+  {% assign fact_text_class = "fact-text--long" %}
+  {% assign fact_card_class = "fact-card--long" %}
+{% elsif fact_length > 110 %}
+  {% assign fact_text_class = "fact-text--medium" %}
+  {% assign fact_card_class = "fact-card--medium" %}
+{% else %}
+  {% assign fact_text_class = "" %}
+  {% assign fact_card_class = "" %}
+{% endif %}
 
 <style>
+  .fact-layout {
+    height: calc(100% - 58px);
+    box-sizing: border-box;
+  }
+
   .fact-full {
     height: 100%;
-    display: flex;
-    flex-direction: column;
-    gap: 18px;
+    display: grid;
+    grid-template-rows: auto minmax(0, 1fr) auto;
+    gap: 14px;
     box-sizing: border-box;
+    min-height: 0;
   }
 
   .fact-header {
@@ -31,7 +51,7 @@
   }
 
   .fact-card {
-    flex: 1;
+    min-height: 0;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -40,6 +60,19 @@
     padding: 30px 34px;
     box-sizing: border-box;
     box-shadow: 10px 10px 0 #000;
+    overflow: hidden;
+  }
+
+  .fact-card--medium {
+    padding: 26px 30px;
+  }
+
+  .fact-card--long {
+    padding: 22px 28px;
+  }
+
+  .fact-card--very-long {
+    padding: 18px 24px;
   }
 
   .fact-card-label {
@@ -55,16 +88,37 @@
     text-transform: uppercase;
   }
 
+  .fact-card--long .fact-card-label,
+  .fact-card--very-long .fact-card-label {
+    margin-bottom: 14px;
+  }
+
   .fact-text {
     font-size: 38px;
     font-weight: 800;
     line-height: 1.16;
   }
 
+  .fact-text--medium {
+    font-size: 32px;
+    line-height: 1.12;
+  }
+
+  .fact-text--long {
+    font-size: 27px;
+    line-height: 1.1;
+  }
+
+  .fact-text--very-long {
+    font-size: 22px;
+    line-height: 1.08;
+  }
+
   .fact-meta {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 12px;
+    align-self: end;
   }
 
   .fact-meta-item {
@@ -106,7 +160,7 @@
   }
 </style>
 
-<div class="layout">
+<div class="layout fact-layout">
   <div class="fact-full">
     <div class="fact-header">
       <div>
@@ -115,9 +169,9 @@
       </div>
     </div>
 
-    <div class="fact-card">
+    <div class="fact-card {{ fact_card_class }}">
       <div class="fact-card-label">Today's unnecessary knowledge</div>
-      <div class="fact-text">"{{ text }}"</div>
+      <div class="fact-text {{ fact_text_class }}">"{{ text }}"</div>
     </div>
 
     <div class="fact-meta">

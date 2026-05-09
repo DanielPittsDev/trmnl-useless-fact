@@ -1,4 +1,20 @@
+{% assign fact_length = text | size %}
+{% if fact_length > 120 %}
+  {% assign fact_text_class = "fact-q-text--very-long" %}
+{% elsif fact_length > 85 %}
+  {% assign fact_text_class = "fact-q-text--long" %}
+{% elsif fact_length > 55 %}
+  {% assign fact_text_class = "fact-q-text--medium" %}
+{% else %}
+  {% assign fact_text_class = "" %}
+{% endif %}
+
 <style>
+  .fact-layout {
+    height: calc(100% - 58px);
+    box-sizing: border-box;
+  }
+
   .fact-quadrant {
     height: 100%;
     display: flex;
@@ -8,6 +24,13 @@
     border-radius: 16px;
     padding: 18px;
     box-sizing: border-box;
+    overflow: hidden;
+    min-height: 0;
+  }
+
+  .fact-q-main {
+    min-height: 0;
+    overflow: hidden;
   }
 
   .fact-q-kicker {
@@ -27,6 +50,21 @@
     font-size: 20px;
     font-weight: 800;
     line-height: 1.12;
+  }
+
+  .fact-q-text--medium {
+    font-size: 17px;
+    line-height: 1.09;
+  }
+
+  .fact-q-text--long {
+    font-size: 15px;
+    line-height: 1.07;
+  }
+
+  .fact-q-text--very-long {
+    font-size: 13px;
+    line-height: 1.05;
   }
 
   .fact-q-source {
@@ -53,11 +91,11 @@
   }
 </style>
 
-<div class="layout">
+<div class="layout fact-layout">
   <div class="fact-quadrant">
-    <div>
+    <div class="fact-q-main">
       <div class="fact-q-kicker">Fact</div>
-      <div class="fact-q-text">{{ text }}</div>
+      <div class="fact-q-text {{ fact_text_class }}">{{ text }}</div>
     </div>
 
     <div class="fact-q-source">Source: {{ source }}</div>
