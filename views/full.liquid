@@ -1,0 +1,126 @@
+{% assign short_id = id | slice: 0, 8 %}
+
+<style>
+  .fact-full {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    box-sizing: border-box;
+  }
+
+  .fact-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    border-bottom: 3px solid #000;
+    padding-bottom: 12px;
+  }
+
+  .fact-kicker {
+    font-size: 18px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+
+  .fact-subtitle {
+    margin-top: 4px;
+    font-size: 16px;
+    color: #333;
+  }
+
+  .fact-card {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border: 4px solid #000;
+    border-radius: 22px;
+    padding: 30px 34px;
+    box-sizing: border-box;
+    box-shadow: 10px 10px 0 #000;
+  }
+
+  .fact-card-label {
+    align-self: flex-start;
+    margin-bottom: 22px;
+    padding: 5px 10px;
+    background: #000;
+    color: #fff;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: 800;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  .fact-text {
+    font-size: 38px;
+    font-weight: 800;
+    line-height: 1.16;
+  }
+
+  .fact-meta {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+
+  .fact-meta-item {
+    border: 2px solid #000;
+    border-radius: 12px;
+    padding: 10px 12px;
+    box-sizing: border-box;
+  }
+
+  .fact-meta-label {
+    display: block;
+    margin-bottom: 4px;
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  .fact-meta-value {
+    display: block;
+    font-size: 17px;
+    font-weight: 700;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+</style>
+
+<div class="layout">
+  <div class="fact-full">
+    <div class="fact-header">
+      <div>
+        <div class="fact-kicker">Useless Fact</div>
+        <div class="fact-subtitle">Random dispatch from the archive</div>
+      </div>
+    </div>
+
+    <div class="fact-card">
+      <div class="fact-card-label">Today's unnecessary knowledge</div>
+      <div class="fact-text">"{{ text }}"</div>
+    </div>
+
+    <div class="fact-meta">
+      <div class="fact-meta-item">
+        <span class="fact-meta-label">Source</span>
+        <span class="fact-meta-value">{{ source }}</span>
+      </div>
+      <div class="fact-meta-item">
+        <span class="fact-meta-label">Fact ID</span>
+        <span class="fact-meta-value">{{ short_id }}</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="title_bar">
+    <span class="title">Useless Facts</span>
+    <span class="instance">DanielPittsDev</span>
+</div>
