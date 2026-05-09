@@ -1,110 +1,40 @@
 {% assign fact_length = text | size %}
 {% if fact_length > 120 %}
-  {% assign fact_text_class = "fact-q-text--very-long" %}
+  {% assign fact_text_class = "text--small font--bold" %}
+  {% assign fact_clamp = "8" %}
 {% elsif fact_length > 85 %}
-  {% assign fact_text_class = "fact-q-text--long" %}
+  {% assign fact_text_class = "text--small font--bold" %}
+  {% assign fact_clamp = "7" %}
 {% elsif fact_length > 55 %}
-  {% assign fact_text_class = "fact-q-text--medium" %}
+  {% assign fact_text_class = "text--base font--bold" %}
+  {% assign fact_clamp = "6" %}
 {% else %}
-  {% assign fact_text_class = "" %}
+  {% assign fact_text_class = "text--large font--bold" %}
+  {% assign fact_clamp = "5" %}
 {% endif %}
 
 <style>
-  .fact-layout {
-    height: calc(100% - 58px);
-    box-sizing: border-box;
-  }
-
-  .fact-quadrant {
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    border: 3px solid #000;
-    border-radius: 16px;
-    padding: 18px;
-    box-sizing: border-box;
-    overflow: hidden;
-    min-height: 0;
-  }
-
-  .fact-q-main {
-    min-height: 0;
-    overflow: hidden;
-  }
-
-  .fact-q-kicker {
-    display: inline-block;
-    margin-bottom: 12px;
-    padding: 4px 8px;
-    background: #000;
-    color: #fff;
-    border-radius: 7px;
-    font-size: 12px;
-    font-weight: 800;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-  }
-
-  .fact-q-text {
-    font-size: 20px;
-    font-weight: 800;
-    line-height: 1.12;
-  }
-
-  .fact-q-text--medium {
-    font-size: 17px;
-    line-height: 1.09;
-  }
-
-  .fact-q-text--long {
-    font-size: 15px;
-    line-height: 1.07;
-  }
-
-  .fact-q-text--very-long {
-    font-size: 13px;
-    line-height: 1.05;
-  }
-
-  .fact-q-source {
-    padding-top: 10px;
-    border-top: 2px solid #000;
-    font-size: 13px;
-    font-weight: 700;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-
-  .title-bar-brand {
-    display: inline-flex;
-    align-items: center;
-    gap: 7px;
-  }
-
-  .title-bar-icon {
-    width: 22px;
-    height: 22px;
-    flex: 0 0 auto;
-    filter: drop-shadow(1px 0 0 #fff) drop-shadow(-1px 0 0 #fff) drop-shadow(0 1px 0 #fff) drop-shadow(0 -1px 0 #fff);
-  }
+  .fact-layout { height: calc(100% - 58px); box-sizing: border-box; }
+  .fact-card-frame { border: 3px solid #000; min-height: 0; overflow: hidden; }
+  .title-bar-icon { filter: drop-shadow(1px 0 0 #fff) drop-shadow(-1px 0 0 #fff) drop-shadow(0 1px 0 #fff) drop-shadow(0 -1px 0 #fff); }
 </style>
 
 <div class="layout fact-layout">
-  <div class="fact-quadrant">
-    <div class="fact-q-main">
-      <div class="fact-q-kicker">Fact</div>
-      <div class="fact-q-text {{ fact_text_class }}">{{ text }}</div>
+  <div class="fact-card-frame rounded--large p--4 h--full flex flex--col gap--distribute">
+    <div>
+      <div class="label label--filled mb--small">Fact</div>
+      <div class="{{ fact_text_class }}" data-clamp="{{ fact_clamp }}">{{ text }}</div>
     </div>
 
-    <div class="fact-q-source">Source: {{ source }}</div>
+    <div class="border--h-1 pt--2 no-shrink">
+      <span class="description" data-clamp="1">Source: {{ source }}</span>
+    </div>
   </div>
 </div>
 
 <div class="title_bar">
-    <span class="title title-bar-brand">
-      <svg class="title-bar-icon" viewBox="0 0 32 32" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+    <span class="title text--left inline-flex flex--row flex--center-y gap--small">
+      <svg class="title-bar-icon" width="22" height="22" viewBox="0 0 32 32" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
         <rect x="4" y="7" width="24" height="20" rx="3.5" fill="none" stroke="currentColor" stroke-width="2.6"/>
         <path d="M8 13H17M8 17H15M8 21H16" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/>
         <text x="22" y="23" fill="currentColor" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="900" text-anchor="middle">?</text>

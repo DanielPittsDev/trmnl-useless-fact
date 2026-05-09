@@ -1,194 +1,60 @@
 {% assign fact_length = text | size %}
 {% if fact_length > 230 %}
-  {% assign fact_text_class = "fact-text--very-long" %}
-  {% assign fact_card_class = "fact-card--very-long" %}
+  {% assign fact_text_class = "text--large font--bold" %}
+  {% assign fact_card_padding_class = "p--5" %}
+  {% assign fact_label_margin_class = "mb--small" %}
+  {% assign fact_clamp = "7" %}
 {% elsif fact_length > 170 %}
-  {% assign fact_text_class = "fact-text--long" %}
-  {% assign fact_card_class = "fact-card--long" %}
+  {% assign fact_text_class = "text--xlarge font--bold" %}
+  {% assign fact_card_padding_class = "p--6" %}
+  {% assign fact_label_margin_class = "mb--medium" %}
+  {% assign fact_clamp = "6" %}
 {% elsif fact_length > 110 %}
-  {% assign fact_text_class = "fact-text--medium" %}
-  {% assign fact_card_class = "fact-card--medium" %}
+  {% assign fact_text_class = "title title--large" %}
+  {% assign fact_card_padding_class = "p--7" %}
+  {% assign fact_label_margin_class = "mb--large" %}
+  {% assign fact_clamp = "5" %}
 {% else %}
-  {% assign fact_text_class = "" %}
-  {% assign fact_card_class = "" %}
+  {% assign fact_text_class = "value" %}
+  {% assign fact_card_padding_class = "p--8" %}
+  {% assign fact_label_margin_class = "mb--large" %}
+  {% assign fact_clamp = "4" %}
 {% endif %}
 
 <style>
-  .fact-layout {
-    height: calc(100% - 58px);
-    box-sizing: border-box;
-  }
-
-  .fact-full {
-    height: 100%;
-    display: grid;
-    grid-template-rows: auto minmax(0, 1fr) auto;
-    gap: 14px;
-    box-sizing: border-box;
-    min-height: 0;
-  }
-
-  .fact-header {
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-    border-bottom: 3px solid #000;
-    padding: 6px 0 12px 8px;
-  }
-
-  .fact-kicker {
-    font-size: 18px;
-    font-weight: 800;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-  }
-
-  .fact-subtitle {
-    margin-top: 4px;
-    font-size: 16px;
-    color: #333;
-  }
-
-  .fact-card {
-    min-height: 0;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    border: 4px solid #000;
-    border-radius: 22px;
-    padding: 30px 34px;
-    box-sizing: border-box;
-    box-shadow: 10px 10px 0 #000;
-    overflow: hidden;
-  }
-
-  .fact-card--medium {
-    padding: 26px 30px;
-  }
-
-  .fact-card--long {
-    padding: 22px 28px;
-  }
-
-  .fact-card--very-long {
-    padding: 18px 24px;
-  }
-
-  .fact-card-label {
-    align-self: flex-start;
-    margin-bottom: 22px;
-    padding: 5px 10px;
-    background: #000;
-    color: #fff;
-    border-radius: 8px;
-    font-size: 15px;
-    font-weight: 800;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-  }
-
-  .fact-card--long .fact-card-label,
-  .fact-card--very-long .fact-card-label {
-    margin-bottom: 14px;
-  }
-
-  .fact-text {
-    font-size: 38px;
-    font-weight: 800;
-    line-height: 1.16;
-  }
-
-  .fact-text--medium {
-    font-size: 32px;
-    line-height: 1.12;
-  }
-
-  .fact-text--long {
-    font-size: 27px;
-    line-height: 1.1;
-  }
-
-  .fact-text--very-long {
-    font-size: 22px;
-    line-height: 1.08;
-  }
-
-  .fact-meta {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 12px;
-    align-self: end;
-  }
-
-  .fact-meta-item {
-    border: 2px solid #000;
-    border-radius: 10px;
-    padding: 7px 10px;
-    box-sizing: border-box;
-  }
-
-  .fact-meta-label {
-    display: block;
-    margin-bottom: 2px;
-    font-size: 11px;
-    font-weight: 800;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-  }
-
-  .fact-meta-value {
-    display: block;
-    font-size: 15px;
-    font-weight: 700;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-
-  .title-bar-brand {
-    display: inline-flex;
-    align-items: center;
-    gap: 7px;
-  }
-
-  .title-bar-icon {
-    width: 22px;
-    height: 22px;
-    flex: 0 0 auto;
-    filter: drop-shadow(1px 0 0 #fff) drop-shadow(-1px 0 0 #fff) drop-shadow(0 1px 0 #fff) drop-shadow(0 -1px 0 #fff);
-  }
+  .fact-layout { height: calc(100% - 58px); box-sizing: border-box; }
+  .fact-card-frame { border: 4px solid #000; box-shadow: 10px 10px 0 #000; min-height: 0; overflow: hidden; }
+  .title-bar-icon { filter: drop-shadow(1px 0 0 #fff) drop-shadow(-1px 0 0 #fff) drop-shadow(0 1px 0 #fff) drop-shadow(0 -1px 0 #fff); }
 </style>
 
 <div class="layout fact-layout">
-  <div class="fact-full">
-    <div class="fact-header">
-      <div>
-        <div class="fact-kicker">Useless Fact</div>
-        <div class="fact-subtitle">Random dispatch from the archive</div>
-      </div>
+  <div class="flex flex--col gap h--full">
+    <div class="border--h-1 pt--1 pl--2 pb--3 no-shrink flex flex--col flex--left w--full">
+      <div class="title title--large text--left self--start w--full">USELESS FACT</div>
+      <div class="description description--large text--left self--start w--full mt--1">Random dispatch from the archive</div>
     </div>
 
-    <div class="fact-card {{ fact_card_class }}">
-      <div class="fact-card-label">Today's unnecessary knowledge</div>
-      <div class="fact-text {{ fact_text_class }}">"{{ text }}"</div>
+    <div class="fact-card-frame rounded--xlarge {{ fact_card_padding_class }} grow flex flex--col flex--center-y">
+      <div class="label label--filled text--white text--left self--start {{ fact_label_margin_class }}">TODAY'S UNNECESSARY KNOWLEDGE</div>
+      <div class="{{ fact_text_class }}" data-clamp="{{ fact_clamp }}">"{{ text }}"</div>
     </div>
 
-    <div class="fact-meta">
-      <div class="fact-meta-item">
-        <span class="fact-meta-label">Source</span>
-        <span class="fact-meta-value">{{ source }}</span>
+    <div class="grid grid--cols-2 gap--small no-shrink">
+      <div class="outline rounded p--2">
+        <span class="label label--small">Source</span>
+        <span class="description description--large" data-clamp="1">{{ source }}</span>
       </div>
-      <div class="fact-meta-item">
-        <span class="fact-meta-label">Source URL</span>
-        <span class="fact-meta-value">{{ source_url }}</span>
+      <div class="outline rounded p--2">
+        <span class="label label--small">Source URL</span>
+        <span class="description description--large" data-clamp="1">{{ source_url }}</span>
       </div>
     </div>
   </div>
 </div>
 
 <div class="title_bar">
-    <span class="title title-bar-brand">
-      <svg class="title-bar-icon" viewBox="0 0 32 32" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+    <span class="title text--left inline-flex flex--row flex--center-y gap--small">
+      <svg class="title-bar-icon" width="22" height="22" viewBox="0 0 32 32" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
         <rect x="4" y="7" width="24" height="20" rx="3.5" fill="none" stroke="currentColor" stroke-width="2.6"/>
         <path d="M8 13H17M8 17H15M8 21H16" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/>
         <text x="22" y="23" fill="currentColor" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="900" text-anchor="middle">?</text>
