@@ -1,9 +1,9 @@
 {
-  "name": "trmnl-plugin-sandbox",
+  "name": "trmnl-useless-fact",
   "version": "1.0.0",
-  "description": "",
+  "description": "TRMNL plugin server for random useless facts.",
   "license": "ISC",
-  "author": "",
+  "author": "DanielPittsDev",
   "type": "commonjs",
   "main": "index.js",
   "scripts": {
