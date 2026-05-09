@@ -1,4 +1,3 @@
-{% assign short_id = id | slice: 0, 8 %}
 {% assign fact_length = text | size %}
 {% if fact_length > 180 %}
   {% assign fact_text_class = "fact-hh-text--very-long" %}
@@ -161,8 +160,8 @@
         </div>
 
         <div>
-          <span class="fact-hh-meta-label">Fact ID</span>
-          <span class="fact-hh-meta-value">{{ short_id }}</span>
+          <span class="fact-hh-meta-label">Source URL</span>
+          <span class="fact-hh-meta-value">{{ source_url }}</span>
         </div>
       </div>
     </div>
