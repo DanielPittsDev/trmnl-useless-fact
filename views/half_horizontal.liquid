@@ -1,167 +1,47 @@
 {% assign fact_length = text | size %}
 {% if fact_length > 180 %}
-  {% assign fact_text_class = "fact-hh-text--very-long" %}
-  {% assign fact_card_class = "fact-hh-card--very-long" %}
+  {% assign fact_text_class = "text--small font--bold" %}
+  {% assign fact_card_padding_class = "p--4" %}
+  {% assign fact_clamp = "8" %}
 {% elsif fact_length > 130 %}
-  {% assign fact_text_class = "fact-hh-text--long" %}
-  {% assign fact_card_class = "fact-hh-card--long" %}
+  {% assign fact_text_class = "text--base font--bold" %}
+  {% assign fact_card_padding_class = "p--5" %}
+  {% assign fact_clamp = "7" %}
 {% elsif fact_length > 90 %}
-  {% assign fact_text_class = "fact-hh-text--medium" %}
-  {% assign fact_card_class = "fact-hh-card--medium" %}
+  {% assign fact_text_class = "text--large font--bold" %}
+  {% assign fact_card_padding_class = "p--5" %}
+  {% assign fact_clamp = "6" %}
 {% else %}
-  {% assign fact_text_class = "" %}
-  {% assign fact_card_class = "" %}
+  {% assign fact_text_class = "text--xlarge font--bold" %}
+  {% assign fact_card_padding_class = "p--6" %}
+  {% assign fact_clamp = "5" %}
 {% endif %}
 
 <style>
-  .fact-layout {
-    height: calc(100% - 58px);
-    box-sizing: border-box;
-  }
-
-  .fact-half-horizontal {
-    height: 100%;
-    display: grid;
-    grid-template-columns: 1fr 220px;
-    gap: 18px;
-    align-items: stretch;
-    box-sizing: border-box;
-    min-height: 0;
-  }
-
-  .fact-hh-card {
-    min-height: 0;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    border: 4px solid #000;
-    border-radius: 18px;
-    padding: 22px 26px;
-    box-sizing: border-box;
-    box-shadow: 8px 8px 0 #000;
-    overflow: hidden;
-  }
-
-  .fact-hh-card--medium {
-    padding: 20px 24px;
-  }
-
-  .fact-hh-card--long {
-    padding: 18px 22px;
-  }
-
-  .fact-hh-card--very-long {
-    padding: 16px 20px;
-  }
-
-  .fact-hh-label {
-    align-self: flex-start;
-    margin-bottom: 14px;
-    padding: 4px 9px;
-    background: #000;
-    color: #fff;
-    border-radius: 7px;
-    font-size: 13px;
-    font-weight: 800;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-  }
-
-  .fact-hh-text {
-    font-size: 28px;
-    font-weight: 800;
-    line-height: 1.13;
-  }
-
-  .fact-hh-text--medium {
-    font-size: 24px;
-    line-height: 1.1;
-  }
-
-  .fact-hh-text--long {
-    font-size: 21px;
-    line-height: 1.08;
-  }
-
-  .fact-hh-text--very-long {
-    font-size: 18px;
-    line-height: 1.06;
-  }
-
-  .fact-hh-side {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    border-left: 3px solid #000;
-    padding-left: 18px;
-    box-sizing: border-box;
-  }
-
-  .fact-hh-meta-stack {
-    display: flex;
-    flex-direction: column;
-    gap: 14px;
-  }
-
-  .fact-hh-kicker {
-    font-size: 17px;
-    font-weight: 800;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-  }
-
-  .fact-hh-meta-label {
-    display: block;
-    margin-bottom: 4px;
-    font-size: 12px;
-    font-weight: 800;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-  }
-
-  .fact-hh-meta-value {
-    display: block;
-    font-size: 16px;
-    font-weight: 700;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-
-  .title-bar-brand {
-    display: inline-flex;
-    align-items: center;
-    gap: 7px;
-  }
-
-  .title-bar-icon {
-    width: 22px;
-    height: 22px;
-    flex: 0 0 auto;
-    filter: drop-shadow(1px 0 0 #fff) drop-shadow(-1px 0 0 #fff) drop-shadow(0 1px 0 #fff) drop-shadow(0 -1px 0 #fff);
-  }
+  .fact-layout { height: calc(100% - 58px); box-sizing: border-box; }
+  .fact-card-frame { border: 4px solid #000; box-shadow: 8px 8px 0 #000; min-height: 0; overflow: hidden; }
+  .title-bar-icon { filter: drop-shadow(1px 0 0 #fff) drop-shadow(-1px 0 0 #fff) drop-shadow(0 1px 0 #fff) drop-shadow(0 -1px 0 #fff); }
 </style>
 
 <div class="layout fact-layout">
-  <div class="fact-half-horizontal">
-    <div class="fact-hh-card {{ fact_card_class }}">
-      <div class="fact-hh-label">Fact</div>
-      <div class="fact-hh-text {{ fact_text_class }}">{{ text }}</div>
+  <div class="flex flex--row gap h--full">
+    <div class="fact-card-frame rounded--large {{ fact_card_padding_class }} grow flex flex--col flex--center-y">
+      <div class="label label--filled mb--medium">Fact</div>
+      <div class="{{ fact_text_class }}" data-clamp="{{ fact_clamp }}">{{ text }}</div>
     </div>
 
-    <div class="fact-hh-side">
-      <div>
-        <div class="fact-hh-kicker">Useless Fact</div>
-      </div>
+    <div class="basis--56 shrink-0 border--v-1 pl--4 flex flex--col gap--distribute">
+      <div class="title title--small text--left self--start w--full">USELESS FACT</div>
 
-      <div class="fact-hh-meta-stack">
+      <div class="flex flex--col gap--medium">
         <div>
-          <span class="fact-hh-meta-label">Source</span>
-          <span class="fact-hh-meta-value">{{ source }}</span>
+          <span class="label label--small">Source</span>
+          <span class="description description--large" data-clamp="1">{{ source }}</span>
         </div>
 
         <div>
-          <span class="fact-hh-meta-label">Source URL</span>
-          <span class="fact-hh-meta-value">{{ source_url }}</span>
+          <span class="label label--small">Source URL</span>
+          <span class="description description--large" data-clamp="2">{{ source_url }}</span>
         </div>
       </div>
     </div>
@@ -169,8 +49,8 @@
 </div>
 
 <div class="title_bar">
-    <span class="title title-bar-brand">
-      <svg class="title-bar-icon" viewBox="0 0 32 32" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+    <span class="title text--left inline-flex flex--row flex--center-y gap--small">
+      <svg class="title-bar-icon" width="22" height="22" viewBox="0 0 32 32" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
         <rect x="4" y="7" width="24" height="20" rx="3.5" fill="none" stroke="currentColor" stroke-width="2.6"/>
         <path d="M8 13H17M8 17H15M8 21H16" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/>
         <text x="22" y="23" fill="currentColor" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="900" text-anchor="middle">?</text>
